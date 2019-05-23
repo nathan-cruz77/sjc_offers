@@ -1,0 +1,22 @@
+version: '2'
+services:
+  mongo:
+    image: mongo
+    environment:
+      - MONGO_INITDB_DATABASE=app
+    ports:
+      - 27017:27017
+    volumes:
+      - mongo-data:/data/db
+  sjc_offers:
+    image: sjc_offers
+    container_name: sjc_offers
+    build: .
+    command: scrapy crawl offers
+    depends_on:
+      - mongo
+    volumes:
+      - .:/app
+
+volumes:
+  mongo-data:
