@@ -8,7 +8,11 @@
 import scrapy
 
 
-class SjcOffersItem(scrapy.Item):
-    # define the fields for your item here like:
-    # name = scrapy.Field()
-    pass
+class Offer(scrapy.Item):
+    status = scrapy.Field()
+    number = scrapy.Field()
+    description = scrapy.Field()
+    type = scrapy.Field()
+    url = scrapy.Field()
+    max_value = scrapy.Field()
+    start_date = scrapy.Field()

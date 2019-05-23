@@ -1,19 +1,16 @@
 from datetime import datetime
+import re
 
 import scrapy
+
+from sjc_offers.items import Offer
 
 
 BASE_URL='http://servicos.sjc.sp.gov.br/sa/licitacoes/detalhe.aspx'
 
 
-class Offer(scrapy.Item):
-    status = scrapy.Field()
-    number = scrapy.Field()
-    description = scrapy.Field()
-    type = scrapy.Field()
-    url = scrapy.Field()
-    max_value = scrapy.Field()
-    start_date = scrapy.Field()
+def squish(s):
+    return re.sub(r'\s+', ' ', s.strip())
 
 
 class OfferSpider(scrapy.Spider):
@@ -36,6 +33,8 @@ class OfferSpider(scrapy.Spider):
     def parse_item(self, segment):
         offer = Offer()
         type, status, number = segment.css('.panel-heading').xpath('span/text()').extract()
+
+        type = squish(type)
 
         offer['status'] = status
         offer['number'] = number
