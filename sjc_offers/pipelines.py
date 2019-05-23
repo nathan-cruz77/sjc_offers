@@ -31,5 +31,6 @@ class MongoPipeline(object):
         self.client.close()
 
     def process_item(self, item, spider):
-        self.db[self.collection_name].insert_one(dict(item))
+        d_item = dict(item)
+        self.db[self.collection_name].replace_one(d_item, d_item, True)
         return item
