@@ -5,8 +5,8 @@
 # Don't forget to add your pipeline to the ITEM_PIPELINES setting
 # See: https://doc.scrapy.org/en/latest/topics/item-pipeline.html
 
-
 import pymongo
+
 
 class MongoPipeline(object):
 
@@ -31,5 +31,6 @@ class MongoPipeline(object):
         self.client.close()
 
     def process_item(self, item, spider):
-        self.db[self.collection_name].insert_one(dict(item))
+        d_item = dict(item)
+        self.db[self.collection_name].replace_one(d_item, d_item, True)
         return item
