@@ -20,6 +20,15 @@ class OfferSpider(scrapy.Spider):
     ]
 
     def parse(self, response):
+        '''
+        This method parses offers in a given offer listing page and also navigate
+        to the next listing page.
+
+        @url http://servicos.sjc.sp.gov.br/sa/licitacoes/detalhe.aspx?sec=1,2&sit=1&mod=1,2,4,6,7,8,9,10&pag=1&pes=
+        @returns items 4 4
+        @returns requests 0 0
+        @scrapes status number description type url max_value start_date
+        '''
         segments = response.xpath('//div[@id="ResultadoBusca"]').css('.panel-default')
 
         for segment in segments:
