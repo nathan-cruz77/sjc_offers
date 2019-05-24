@@ -99,9 +99,6 @@ class OfferSpider(scrapy.Spider):
 
         line = self.nth_body_line(segment, line_from_status[status])
 
-        if line == 'encerrado':
-            return None
-
         try:
             date, _, time = line.split()[2:]
             return datetime.strptime(f'{date} {time.replace("h", ":")}', '%d/%m/%Y %H:%M')
