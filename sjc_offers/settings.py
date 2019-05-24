@@ -69,7 +69,8 @@ ITEM_PIPELINES = {
 }
 
 # MongoDB credentials
-MONGO_URI = 'mongodb://mongo:27017'
+# MONGO_URI = 'mongodb://mongo'
+MONGO_URI = 'mongodb+srv://app:app@cluster0-xaza9.mongodb.net'
 MONGO_DATABASE = 'app'
 
 # Enable and configure the AutoThrottle extension (disabled by default)
