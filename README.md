@@ -19,7 +19,7 @@ project running) using:
 docker exec -it mongo mongo
 ```
 
-Crawled items can be found in collection `offers` in the databae `app`.
+Crawled items can be found in the collection `offers` in the database `app`.
 
 Data is store in the local folder `mongo_data` and multiple runs
 **do not** duplicate items.
