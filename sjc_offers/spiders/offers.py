@@ -49,7 +49,7 @@ class OfferSpider(scrapy.Spider):
 
     def next_page(self, response):
         url = response.xpath('//a[text()="Próxima >"]/@href').extract_first()
-        return f'{BASE_URL.rstrip("detalhe.aspx")}{url}'
+        return url and f'{BASE_URL.rstrip("detalhe.aspx")}{url}'
 
     def build_url(self, type, number):
         return f'{BASE_URL}?sec=&sit=&mod={self.type_to_number(type)}&pag=1&pes={number}'
