@@ -12,8 +12,20 @@ Run it with `docker-compose`:
 docker-compose up
 ```
 
+### Database
 The database will be available at `localhost:27017`. You may access it (with the
 project running) using:
 ```shell
 docker exec -it mongo mongo
+```
+
+Crawled items can be found in collection `offers` in the databae `app`.
+
+Data is store in the local folder `mongo_data` and multiple runs
+**do not** duplicate items.
+
+### Tests
+Run tests with:
+```shell
+./test.sh
 ```
