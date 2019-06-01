@@ -6,6 +6,7 @@
 # See: https://doc.scrapy.org/en/latest/topics/item-pipeline.html
 
 import pymongo
+from pymongo import ReplaceOne
 
 
 class MongoPipeline(object):
@@ -26,11 +27,24 @@ class MongoPipeline(object):
     def open_spider(self, spider):
         self.client = pymongo.MongoClient(self.mongo_uri)
         self.db = self.client[self.mongo_db]
+        self.operations = []
 
     def close_spider(self, spider):
+        self.flush_operations()
         self.client.close()
 
     def process_item(self, item, spider):
         d_item = dict(item)
-        self.db[self.collection_name].replace_one(d_item, d_item, True)
+        op = ReplaceOne(d_item, d_item, upsert=True)
+        self.operations.append(op)
+
+        if len(self.operations) >= 1000:
+            self.flush_operations()
+
         return item
+
+    def flush_operations(self):
+        if self.operations:
+            self.db[self.collection_name].bulk_write(self.operations)
+
+        self.operations = []
